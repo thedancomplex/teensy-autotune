@@ -96,7 +96,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   /* get the peak frequency */
-  float f_act = getPeakFreq();
+  float f_mes = getPeakFreq();
 
   /* gains for the PID controller for the peak finder */
   float kp_freq = 1.0;
@@ -107,16 +107,18 @@ void loop() {
   float f_des = getDesFreq();
 
   /* Error between desired and actuial freq */
-  float e_freq = f_des - f_act;
+  float e_freq = f_des - f_mes;
 
   /* Control output from PID, need to change it to a ratio (i.e. if no error it is equal to 1) */
   float f_ctrl = kp_freq * e_freq;
 
   /* ratio of the error of the frequency to the actuial frequency... */
   /* wait... can I just do the raito of the measured and actuial frequency? */
-  float f_ratio = e_freq/f_des;
+  float f_ratio = f_des / f_mes;
 
-  granular1.setSpeed(ratio);
+  /* TODO: set it up so you can adjust the speed of the change, this should built into the granular library */
+
+  granular1.setSpeed(f_ratio);
 
   /* Continuously adjust speed based on the A2 Pot */
   /* A2D converter */
