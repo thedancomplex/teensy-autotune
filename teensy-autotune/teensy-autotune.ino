@@ -78,14 +78,53 @@ void setup() {
 
 }
 
+float getPeakFreq()
+{
+/* gets the peak frequency of the speach */
+/* might want to put a HPF or a band pass filter to get rid of the low frequency stuff */
+
+return 0.0;
+}
+
+float getDesFreq()
+{
+  /* MOCK: get desired frequency */
+  return 440.0;
+}
+
 void loop() {
   // put your main code here, to run repeatedly:
 
+  /* get the peak frequency */
+  float f_act = getPeakFreq();
+
+  /* gains for the PID controller for the peak finder */
+  float kp_freq = 1.0;
+  float ki_freq = 0.0;
+  float kd_freq = 0.0;
+
+  /* Desired Frequency - From midi */
+  float f_des = getDesFreq();
+
+  /* Error between desired and actuial freq */
+  float e_freq = f_des - f_act;
+
+  /* Control output from PID, need to change it to a ratio (i.e. if no error it is equal to 1) */
+  float f_ctrl = kp_freq * e_freq;
+
+  /* ratio of the error of the frequency to the actuial frequency... */
+  /* wait... can I just do the raito of the measured and actuial frequency? */
+  float f_ratio = e_freq/f_des;
+
+  granular1.setSpeed(ratio);
+
   /* Continuously adjust speed based on the A2 Pot */
   /* A2D converter */
+  /*
   float knobA2 = (float)analogRead(A2) / 1023.0;
   float ratio = 0.0;
   ratio = powf( 2.0, knobA2 * 2.0 - 1.0 );
   granular1.setSpeed(ratio);
+  */
 
 }
