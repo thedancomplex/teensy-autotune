@@ -1,7 +1,7 @@
 #define NOTE_MAX 108
 
 /* List of all frequencies */
-const float NOTES[NOTE_MAX] = 
+float NOTES[] = 
                          {16.35 ,
                           17.32 ,
                           18.35 ,

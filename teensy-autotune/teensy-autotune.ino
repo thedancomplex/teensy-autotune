@@ -5,6 +5,8 @@
 #include <SerialFlash.h>
 #include "midi_note.h"
 
+#define MIDI_CHANNEL 15;
+
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s1;           //xy=233,238
 AudioMixer4              mixer1;         //xy=454,238
