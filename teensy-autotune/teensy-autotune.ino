@@ -3,6 +3,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
+#include "midi_note.h"
 
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s1;           //xy=233,238
@@ -95,6 +96,9 @@ float getPeakFreq()
 return 0.0;
 }
 
+
+float freq_out = 440.0;
+
 float getDesFreq()
 {
   char note;
@@ -104,8 +108,20 @@ float getDesFreq()
   {
     is_midi = processMIDI(&channel, &note);
   }
+
+  if (is_midi == 1)
+  {
+    if ( channel == MIDI_CHANNEL )
+    {
+      if ( note < NOTE_MAX )
+      {
+        freq_out = NOTES[note];
+      }
+      
+    }
+  }
   /* MOCK: get desired frequency */
-  return 440.0;
+  return freq_out;
 }
 
 void loop() {
