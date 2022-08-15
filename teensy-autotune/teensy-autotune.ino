@@ -90,10 +90,26 @@ void setup() {
 
 }
 
+#define FREQ_THRESHOLD 0.5
+
 float getPeakFreq()
 {
 /* gets the peak frequency of the speach */
 /* might want to put a HPF or a band pass filter to get rid of the low frequency stuff */
+
+  /* Start Note Freq Read */
+  /* Might move this to setup */
+  notefreq1.begin(FREQ_THRESHOLD);  
+
+  /* Wait for read to be avaliable, ... might want to make this an interrupt later */
+  while( !notefreq1.available() );
+
+  /* probobality of the give frequency */
+  float freq_prob = notefreq1.probability();
+  
+  /* get note */
+  float freq_note = notefreq1.read();
+
 
 return 0.0;
 }
