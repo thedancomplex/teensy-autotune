@@ -46,7 +46,13 @@ int16_t granularMemory[GRANULAR_MEMORY_SIZE];
 #define SDCARD_CS_PIN    10
 #define SDCARD_MOSI_PIN  7
 #define SDCARD_SCK_PIN   14
+void setupPeakFreq(float freq_threshold)
 */
+
+
+/* for Frequency detect */
+#define FREQ_THRESHOLD 0.5
+void setupPeakFreq(float freq_threshold);
 
 /* setup midi */
 
@@ -72,6 +78,9 @@ void setup() {
 
   /* the Granular effect requires memory to operate */
   granular1.begin(granularMemory, GRANULAR_MEMORY_SIZE);
+
+
+  setupPeakFreq(FREQ_THRESHOLD);
   
 
   /* Uncomment if want to enable SD Card */
@@ -90,7 +99,6 @@ void setup() {
 
 }
 
-#define FREQ_THRESHOLD 0.5
 
 float getPeakFreq()
 {
@@ -114,6 +122,13 @@ float getPeakFreq()
 return 0.0;
 }
 
+void setupPeakFreq(float freq_threshold)
+{
+  /* Start Note Freq Read */
+  /* Might move this to setup */
+  notefreq1.begin(FREQ_THRESHOLD);  
+  return; 
+}
 
 float freq_out = 440.0;
 
