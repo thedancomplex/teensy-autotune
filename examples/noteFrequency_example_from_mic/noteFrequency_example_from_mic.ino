@@ -43,6 +43,7 @@ AudioConnection          patchCord1(i2s1, 0, mixer, 0);
 AudioConnection          patchCord2(i2s1, 1, mixer, 1);
 AudioConnection          patchCord3(mixer, notefreq);
 AudioConnection          patchCord4(mixer, dac);
+AudioControlSGTL5000     sgtl5000_1;     //xy=162,31
 // GUItool: end automatically generated code
 
 
@@ -52,6 +53,20 @@ AudioConnection          patchCord4(mixer, dac);
 //---------------------------------------------------------------------------------------
 void setup() {
     AudioMemory(64);
+    
+
+    /* Enables the Audio Shield */
+    sgtl5000_1.enable();
+
+    /* Sets mic as the input */
+    sgtl5000_1.inputSelect(AUDIO_INPUT_MIC);
+
+    /* Set mic gain in dB (0 to 63 dB) */
+    sgtl5000_1.micGain(20);
+
+    /* set output volume (not that we are outputting yet) */
+    sgtl5000_1.volume(0.5);
+
     /*
      *  Initialize the yin algorithm's absolute
      *  threshold, this is good number.
