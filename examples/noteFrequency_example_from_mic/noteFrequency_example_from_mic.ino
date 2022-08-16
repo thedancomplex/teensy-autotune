@@ -27,28 +27,31 @@
  the teensy can store in flash these notes are truncated to ~120,000B or about 1/2 of the whole
  signal.
  */
-#include <SerialFlash.h>
+
 #include <Audio.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
-//---------------------------------------------------------------------------------------
+#include <SerialFlash.h>
 
-//---------------------------------------------------------------------------------------
-AudioAnalyzeNoteFrequency notefreq;
-AudioOutputAnalog         dac;
-AudioPlayMemory           wav_note;
-AudioMixer4               mixer;
-//---------------------------------------------------------------------------------------
-AudioConnection patchCord0(wav_note, 0, mixer, 0);
-AudioConnection patchCord1(mixer, 0, notefreq, 0);
-AudioConnection patchCord2(mixer, 0, dac, 0);
+// GUItool: begin automatically generated code
+AudioInputI2S            i2s1;           //xy=133,122
+AudioMixer4              mixer;          //xy=293,142
+AudioOutputAnalog        dac;            //xy=483,64
+AudioAnalyzeNoteFrequency notefreq;       //xy=484,205
+AudioConnection          patchCord1(i2s1, 0, mixer, 0);
+AudioConnection          patchCord2(i2s1, 1, mixer, 1);
+AudioConnection          patchCord3(mixer, notefreq);
+AudioConnection          patchCord4(mixer, dac);
+// GUItool: end automatically generated code
+
+
 //---------------------------------------------------------------------------------------
 // IntervalTimer playNoteTimer;
 
 //---------------------------------------------------------------------------------------
 void setup() {
-    AudioMemory(30);
+    AudioMemory(64);
     /*
      *  Initialize the yin algorithm's absolute
      *  threshold, this is good number.
