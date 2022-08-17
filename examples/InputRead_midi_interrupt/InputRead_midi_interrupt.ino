@@ -11,6 +11,48 @@
    This example code is in the public domain.
 */
 
+#include "midi_note.h"
+
+/* add interrupt */
+IntervalTimer midiTimer;
+
+#define MIDI_CHANNEL 15
+
+int m_midi_note  = 60;
+float m_freq_out = 440.0;
+
+void doMidi()
+{
+  int is_midi = 0;
+  if(usbMIDI.read())
+  {
+    char note    = 0;
+    char channel = 0;
+    is_midi = processMIDI(&channel, &note);
+  }
+
+  if (is_midi == 1)
+  {
+    if ( channel == MIDI_CHANNEL )
+    {
+      if ( note < NOTE_MAX )
+      {
+        m_freq_out  = NOTES[note];
+        m_midi_note = note;
+      }
+      
+    }
+  }
+  return;
+}
+
+
+int midiSetup()
+{
+  midiTimer.priority(145);
+  midiTimer.begin(doMidi, 10);
+}
+
 void setup() {
   Serial.begin(115200);
 }
