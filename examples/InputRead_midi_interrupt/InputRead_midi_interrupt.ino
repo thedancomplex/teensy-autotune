@@ -48,7 +48,6 @@ void doMidi()
   return;
 }
 
-
 int midiSetup()
 {
   midiTimer.priority(145);
