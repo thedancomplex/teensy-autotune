@@ -52,11 +52,13 @@ int midiSetup()
 {
   midiTimer.priority(145);
   midiTimer.begin(doMidi, 10);
+  return 0;
 }
 
 void setup() {
   Serial.begin(115200);
   midiSetup();
+  return;
 }
 
 void loop() {
