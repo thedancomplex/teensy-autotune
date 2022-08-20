@@ -20,7 +20,7 @@ void setup() {
   // put your setup code here, to run once:
   AudioMemory(60);
   amp1.gain(1.0);
-  pinMode(A2, INPUT);
+  //pinMode(A2, INPUT);
   Serial.begin(115200);
 
 }
